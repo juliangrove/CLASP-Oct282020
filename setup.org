@@ -1,0 +1,33 @@
+#+BEAMER_HEADER: \usepackage[linguistics]{forest}
+#+BEAMER_HEADER: \forestset{ downroof/.style={ for children={ if n=1{ edge path'={ (.parent first) -- (!u.parent anchor) -- (!ul.parent last) -- cycle }}{no edge} } } }
+#+BEAMER_HEADER: \newcommand{\lda}[2]{\lambda#1.#2}
+#+BEAMER_HEADER: \newcommand{\ctypeL}[2]{(#1\rightarrow#2)}
+#+BEAMER_HEADER: \newcommand{\ctypeR}[2]{#1\rightarrow#2}
+#+BEAMER_HEADER: \newcommand{\IF}[1]{\llbracket#1\rrbracket}
+#+BEAMER_HEADER: \newcommand{\app}[2]{#1(#2)}
+#+BEAMER_HEADER: \newlength\appwidth
+#+BEAMER_HEADER: \newcommand{\appS}[2]{\settowidth{\appwidth}{\ }#1\hspace{0.1\appwidth}#2}
+#+BEAMER_HEADER: \newcommand{\appC}[2]{\settowidth{\appwidth}{\ }(#1\hspace{0.1\appwidth}#2)}
+#+BEAMER_HEADER: \newcommand{\quant}[3]{#1#2:#3}
+#+BEAMER_HEADER: \newcommand{\ct}[1]{\textbf{#1}}
+#+BEAMER_HEADER: \newcommand{\stacks}[1]{\begin{tabular}{c}#1\end{tabular}}
+#+BEAMER_HEADER: \newcommand{\maybe}[1]{#1\textsubscript{$\#$}}
+#+BEAMER_HEADER: \def\divd{\ |\ }
+#+BEAMER_HEADER: \newcommand{\corners}[1]{\ulcorner#1\urcorner}
+#+BEAMER_HEADER: \newcommand{\uparrowed}[1]{\stackon[0pt]{$#1$}{$\uparrow$}}
+#+BEAMER_HEADER: \newcommand{\unit}[2]{#2\textsuperscript{\uparrowed{#1}}}
+#+BEAMER_HEADER: \newlength\bindwidth
+#+BEAMER_HEADER: \newcommand{\bindsymb}[1]{{{\settowidth{\bindwidth}{\ }\mathtt{>\hspace{-1.7\bindwidth}>\hspace{-1.7\bindwidth}=}}_#1}}
+#+BEAMER_HEADER: \newcommand{\bind}[2]{#2\textsuperscript{$\bindsymb{#1}$}}
+#+BEAMER_HEADER: \newcommand{\newframebreaks}[1]{
+#+BEAMER_HEADER:   \begin{frame}[allowframebreaks]{\secname}
+#+BEAMER_HEADER:     \framesubtitle{\subsecname}
+#+BEAMER_HEADER:     #1
+#+BEAMER_HEADER:   \end{frame}
+#+BEAMER_HEADER: }
+#+BEAMER_HEADER: \newcommand{\newframe}[1]{
+#+BEAMER_HEADER:   \begin{frame}{\secname}
+#+BEAMER_HEADER:     \framesubtitle{\subsecname}
+#+BEAMER_HEADER:     #1
+#+BEAMER_HEADER:   \end{frame}
+#+BEAMER_HEADER: }

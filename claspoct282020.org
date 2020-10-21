@@ -1,0 +1,45 @@
+#+LATEX_CLASS: slides
+#+SETUPFILE: setup.org
+#+OPTIONS: toc:t H:2
+#+BEAMER_THEME: Boadilla
+
+#+Author: Julian Grove
+#+BEAMER_HEADER: \institute[CLASP, U. of Gothenburg]{CLASP, University of Gothenburg}
+#+Title: Algebraic effects in Montague semantics
+#+Date: October 28, 2020
+
+* Side effects in linguistic semantics
+
+** Where we are
+#+TOC: headlines [currentsection]  
+
+** Programming side effects
+*** State
+
+** Linguistic side effects
+*** These bullets should appear in a box.
+- Here is a bullet.
+- Here is another.
+- Even more.
+
+** How linguistic side effects interact
+
+* Algebraic effects and handlers
+
+** Where we are 
+#+TOC: headlines [currentsection]
+
+** A new section
+Here is some text that will go in the new section.
+
+* Making it Montagovian
+
+** Where we are
+#+TOC: headlines [currentsection]
+
+** Making it Montagovian
+
+* Quantification and anaphora
+  
+** Where we are
+#+TOC: headlines [currentsection]

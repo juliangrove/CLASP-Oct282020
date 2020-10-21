@@ -1,0 +1,158 @@
+% Created 2020-10-21 Wed 10:10
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation]{beamer}
+\usepackage[T1]{fontenc}
+\setbeamerfont{frametitle}{size=\large}
+\definecolor{gbbg}{HTML}{282828}
+\definecolor{gbred}{HTML}{9d0006}
+\definecolor{gblightred}{HTML}{cc241d}
+\definecolor{gbgreen}{HTML}{98971a}
+\definecolor{gbyellow}{HTML}{d79921}
+\definecolor{gbblue}{HTML}{076678}
+\definecolor{gbpurple}{HTML}{b16286}
+\definecolor{gbaqua}{HTML}{689d6a}
+\definecolor{gbgray}{HTML}{928374}
+\setbeamercolor*{structure}{bg=gbblue!20,fg=gbred}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.bg}
+\setbeamercolor*{palette secondary}{fg=white,bg=gbblue!75}
+\setbeamercolor*{palette tertiary}{fg=white,bg=gbgreen!50}
+\setbeamercolor*{palette quaternary}{fg=white,bg=gbpurple}
+\setbeamercolor{section in toc}{fg=gbbg,bg=white}
+\setbeamercolor{alerted text}{fg=gbpurple}
+\setbeamercolor{titlelike}{bg=gbbg!50,fg=gbgreen}
+\setbeamercolor{frametitle}{bg=gbgray!10!white,fg=gbbg}
+\setbeamercolor{title}{fg=gbred}
+\setbeamertemplate{footline}{
+\begin{flushright}
+\insertframenumber/\inserttotalframenumber\hspace{2mm}\mbox{}
+\end{flushright}}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[small]{eulervm}
+\usepackage{tipa}
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{tikz-qtree}
+\usepackage{expex}
+\usepackage{natbib}
+\usepackage{stmaryrd}
+\usepackage{stackrel}
+\usepackage{stackengine}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\bibliographystyle{li}
+\usetheme{Boadilla}
+\author{Julian Grove}
+\date{October 28, 2020}
+\title{Algebraic effects in Montague semantics}
+\usepackage[linguistics]{forest}
+\forestset{ downroof/.style={ for children={ if n=1{ edge path'={ (.parent first) -- (!u.parent anchor) -- (!ul.parent last) -- cycle }}{no edge} } } }
+\newcommand{\lda}[2]{\lambda#1.#2}
+\newcommand{\ctypeL}[2]{(#1\rightarrow#2)}
+\newcommand{\ctypeR}[2]{#1\rightarrow#2}
+\newcommand{\IF}[1]{\llbracket#1\rrbracket}
+\newcommand{\app}[2]{#1(#2)}
+\newlength\appwidth
+\newcommand{\appS}[2]{\settowidth{\appwidth}{\ }#1\hspace{0.1\appwidth}#2}
+\newcommand{\appC}[2]{\settowidth{\appwidth}{\ }(#1\hspace{0.1\appwidth}#2)}
+\newcommand{\quant}[3]{#1#2:#3}
+\newcommand{\ct}[1]{\textbf{#1}}
+\newcommand{\stacks}[1]{\begin{tabular}{c}#1\end{tabular}}
+\newcommand{\maybe}[1]{#1\textsubscript{$\#$}}
+\def\divd{\ |\ }
+\newcommand{\corners}[1]{\ulcorner#1\urcorner}
+\newcommand{\uparrowed}[1]{\stackon[0pt]{$#1$}{$\uparrow$}}
+\newcommand{\unit}[2]{#2\textsuperscript{\uparrowed{#1}}}
+\newlength\bindwidth
+\newcommand{\bindsymb}[1]{{{\settowidth{\bindwidth}{\ }\mathtt{>\hspace{-1.7\bindwidth}>\hspace{-1.7\bindwidth}=}}_#1}}
+\newcommand{\bind}[2]{#2\textsuperscript{$\bindsymb{#1}$}}
+\newcommand{\newframebreaks}[1]{
+\begin{frame}[allowframebreaks]{\secname}
+\framesubtitle{\subsecname}
+#1
+\end{frame}
+}
+\newcommand{\newframe}[1]{
+\begin{frame}{\secname}
+\framesubtitle{\subsecname}
+#1
+\end{frame}
+}
+\institute[CLASP, U. of Gothenburg]{CLASP, University of Gothenburg}
+\hypersetup{
+ pdfauthor={Julian Grove},
+ pdftitle={Algebraic effects in Montague semantics},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\section{Side effects in linguistic semantics}
+\label{sec:org2b2f357}
+
+\begin{frame}[label={sec:orgdd5848b}]{Where we are}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[label={sec:org29383bb}]{Programming side effects}
+\begin{block}{State}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:orgffad39c}]{Linguistic side effects}
+\begin{block}{These bullets should appear in a box.}
+\begin{itemize}
+\item Here is a bullet.
+\item Here is another.
+\item Even more.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org920686a}]{How linguistic side effects interact}
+\end{frame}
+
+\section{Algebraic effects and handlers}
+\label{sec:org56af4a7}
+
+\begin{frame}[label={sec:org064d8d1}]{Where we are}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[label={sec:org343c96c}]{A new section}
+Here is some text that will go in the new section.
+\end{frame}
+
+\section{Making it Montagovian}
+\label{sec:org9dfb4fa}
+
+\begin{frame}[label={sec:org752674b}]{Where we are}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[label={sec:org467942f}]{Making it Montagovian}
+\end{frame}
+
+\section{Quantification and anaphora}
+\label{sec:org545d664}
+
+\begin{frame}[label={sec:orgd301f58}]{Where we are}
+\tableofcontents[currentsection]
+\end{frame}
+\end{document}
