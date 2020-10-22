@@ -1,3 +1,24 @@
+#+BEAMER_HEADER: \definecolor{gbbg}{HTML}{282828}
+#+BEAMER_HEADER: \definecolor{gbred}{HTML}{9d0006}
+#+BEAMER_HEADER: \definecolor{gblightred}{HTML}{cc241d}
+#+BEAMER_HEADER: \definecolor{gbgreen}{HTML}{79740e}
+#+BEAMER_HEADER: \definecolor{gbyellow}{HTML}{b57614}
+#+BEAMER_HEADER: \definecolor{gbblue}{HTML}{076678}
+#+BEAMER_HEADER: \definecolor{gbpurple}{HTML}{8f3f71}
+#+BEAMER_HEADER: \definecolor{gbaqua}{HTML}{427b58}
+#+BEAMER_HEADER: \definecolor{gbgray}{HTML}{928374}
+#+BEAMER_HEADER: \setbeamercolor*{structure}{fg=gbblue!70}
+#+BEAMER_HEADER: \setbeamercolor*{palette primary}{fg=white,bg=gbred!40}
+#+BEAMER_HEADER: \setbeamercolor*{palette secondary}{fg=white,bg=gbred!65}
+#+BEAMER_HEADER: \setbeamercolor*{palette tertiary}{fg=white,bg=gbred!90}
+# #+BEAMER_HEADER: \setbeamercolor*{palette quaternary}{fg=white,bg=gbred}
+#+BEAMER_HEADER: \setbeamercolor{section in toc}{fg=gbbg,bg=white}
+#+BEAMER_HEADER: \setbeamercolor{alerted text}{fg=gbpurple}
+# #+BEAMER_HEADER: \setbeamercolor{titlelike}{bg=gbbg!50,fg=gbgreen}
+#+BEAMER_HEADER: \setbeamercolor{frametitle}{bg=gbgray!10!white,fg=gbblue}
+#+BEAMER_HEADER: \setbeamercolor{title}{fg=gbred}
+
+
 #+BEAMER_HEADER: \usepackage[linguistics]{forest}
 #+BEAMER_HEADER: \forestset{ downroof/.style={ for children={ if n=1{ edge path'={ (.parent first) -- (!u.parent anchor) -- (!ul.parent last) -- cycle }}{no edge} } } }
 #+BEAMER_HEADER: \newcommand{\lda}[2]{\lambda#1.#2}

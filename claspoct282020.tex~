@@ -1,4 +1,4 @@
-% Created 2020-10-22 Thu 01:16
+% Created 2020-10-21 Wed 21:36
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[T1]{fontenc}
@@ -102,18 +102,18 @@
 
 
 \section{Side effects in linguistic semantics}
-\label{sec:orga9fed10}
+\label{sec:org8ff3dcf}
 
-\begin{frame}[label={sec:org21bdb8c}]{We are here}
+\begin{frame}[label={sec:org70a24dc}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:orgeac0c18}]{Programming side effects}
+\begin{frame}[label={sec:org14ca3eb}]{Programming side effects}
 \begin{block}{State}
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org3f16376}]{Linguistic side effects}
+\begin{frame}[label={sec:org43a6acb}]{Linguistic side effects}
 \begin{block}{These bullets should appear in a box.}
 \begin{itemize}
 \item Here is a bullet.
@@ -123,34 +123,34 @@
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org8d10470}]{Linguistic side effects can interact}
+\begin{frame}[label={sec:org1f6617c}]{Linguistic side effects can interact}
 \end{frame}
 
 \section{Algebraic effects and handlers}
-\label{sec:orgb861a71}
+\label{sec:orgdc46377}
 
-\begin{frame}[label={sec:orgba86ed5}]{We are here}
+\begin{frame}[label={sec:org69f8a3f}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:org0ca2fef}]{A new section}
+\begin{frame}[label={sec:org8484858}]{A new section}
 Here is some text that will go in the new section.
 \end{frame}
 
 \section{Making it Montagovian}
-\label{sec:orgdb37f61}
+\label{sec:orgb4834d0}
 
-\begin{frame}[label={sec:org2b05b08}]{We are here}
+\begin{frame}[label={sec:org5988312}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:org9b7aa69}]{Making it Montagovian}
+\begin{frame}[label={sec:org528df73}]{Making it Montagovian}
 \end{frame}
 
 \section{Quantification and anaphora}
-\label{sec:org6158f38}
+\label{sec:org55404d7}
 
-\begin{frame}[label={sec:org9db0790}]{We are here}
+\begin{frame}[label={sec:org5eb60c7}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 \end{document}
