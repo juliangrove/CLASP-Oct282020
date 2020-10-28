@@ -9,37 +9,558 @@
 #+Date: October 28, 2020
 
 * Side effects in linguistic semantics
-
+  
 ** We are here
-#+TOC: headlines [currentsection]  
+   #+TOC: headlines [currentsection]
+   
+** Semantics
+   Semantics is for\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - characterizing semantic knowledge\ldots
+     - \ldots i.e., knowledge of /entailments/? /distributional properties/?
+   - describing how linguistic structure (i.e., syntax) gives rise to the things being characterized (whatever they are)
+   - describing how pragmatic stuff (e.g., presupposing something, referring to something, expressing something) should affect the things being characterized 
+   
+** Montague
+   #+attr_latex: :width 60px
+   [[./montague.jpg]]\\
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - used models as a vehicle to characterize meanings in terms of entailments
+   - described how linguistic structure gives rise to meanings, /compositionally/
+     - simply typed \lambda-calculus
+   - *no* pragmatic stuff
+  
+** Functional application
+   citealt:montague_proper_1973:
+   #+attr_latex: :width 300px
+   [[./fa_syntax.jpg]]
+   [[./fa_semantics.jpg]]
 
-** Programming side effects
-*** State
+   #+BEGIN_EXPORT latex
+   \centering
+   \begin{forest}
+   [[John][slept]]
+   \end{forest}
+   \begin{forest}
+   [\mbox{}\\$\leadsto$]
+   \end{forest}
+   \begin{forest}
+   [$\lda{s}{\appS{\appS{\ct{sleep}}{\ct{j}}}{s}}$ [$\lda{P, s}{\appS{\appS{P}{s}}{(\lda{s}{\ct{j}})}}$] [$\lda{s, x}{\appS{\appS{\ct{sleep}}{\appC{x}{s}}}{s}}$]]
+   \end{forest}
+   #+END_EXPORT
+
+** Quantifying in
+   #+attr_latex: :width 300px
+   [[./roq_syntax.jpg]]
+   [[./roq_semantics.jpg]]
+
+** Quantifying in
+   /Every dog slept/\\
+   #+BEGIN_EXPORT latex
+   \centering
+   \begin{forest}
+   [[every dog] [he$_n$ slept]]
+   \end{forest}
+   \begin{forest}
+   [\mbox{}\\$\leadsto$]
+   \end{forest}{\small
+   \begin{forest}
+   [$\lda{s}{\quant{\forall}{u}{\appS{\appS{\ct{dog}}{u}}{s} \ra \appS{\appS{\ct{sleep}}{\underline{u}}}{s}}}$ [$\lda{P,s}{\quant{\forall}{u}{\appS{\appS{\ct{dog}}{u}}{s}} \ra \appS{\appS{P}{(\lda{s}{u})}}{s}}$] [$\lda{s}{\appS{\appS{\ct{sleep}}{\appC{\underline{x_n}}{s}}}{s}}$]]
+   \end{forest}}
+   #+END_EXPORT
+
+   #+BEAMER: \pause
+   #+BEGIN_CENTER
+   *Not compositional*
+   #+END_CENTER
+
+** Since then
+   Many techniques since Montague for establishing seemingly non-local quantifier-variable dependencies\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - Cooper Storage and variants thereof citep:cooper_quantification_1983,keller_nested_1988
+   - Quantifier Raising and Predicate Abstraction citep:heim_semantics_1998
+   - Flexible types and/or combinators citep:hendriks_studied_1993,steedman_syntactic_2000
+   - Grammars with interfaces to side effects
+     - Continuations citep:barker_continuations_2002,barker_continuations_2014
+     - Monads citep:shan_monads_2002,charlow_semantics_2014
+     - Idioms citep:kobele_cooper_2018
+
+** Side effects
+   Programming languages may exhibit "impure" behaviors.
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - input/output
+     - print "hi"
+   - environment/state
+     - os.path.exists("./gremlins2.mov")
+   - partiality/exceptions
+   - non-determinism
+  
+   #+BEAMER: \pause
+   /Pure/ programs merely manipulate data\ldots
+   #+BEAMER: \pause
+   - e.g., through functional application
+     - def add(x, y):\\
+           \hspace{5mm}return (x + y)
+	   
+   #+BEAMER: \bigskip
+	
+   #+BEAMER: \pause
+   *Theories of side effects (e.g., monads) provide interfaces to impure behavior.* 
 
 ** Linguistic side effects
-*** These bullets should appear in a box.
-- Here is a bullet.
-- Here is another.
-- Even more.
+   The effectful approach:
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - identity linguistic phenomenon that appears to behave "impurely", i.e., by subverting compositionality
+     - e.g., quantification, anaphora, conventional implicature\ldots
+   - find an effectful interface that appropriately describes its behavior
+   - add it to your compositional repertoire!
 
-** Linguistic side effects can interact
+** This talk
+   #+ATTR_BEAMER: :overlay <+->
+   - present two monadic interfaces to side effects: one for quantification and one anaphora
+     - the Continuation monad and the State monad, respectively
+   - show how they may and /may not/ be combined
+   - introduce /algebraic effects/
+  
+** Monads
+   a functor $\mathcal{M}$, equipped with two operators, $\unit{(\cdot)}$ (`return') and $\bind$ (`bind')
 
+   #+BEAMER: \bigskip
+
+*** $\mathcal{M}$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.5
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \mathcal{M} &: \mathcal{T} \ra \mathcal{T}\\
+    \unit{(\cdot)} &: a \ra \mathcal{M}(b)\\
+    (\bind) &: \mathcal{M}(a) \ra (a \ra \mathcal{M}(b)) \ra \mathcal{M}(b)
+    \end{align*}
+    #+END_EXPORT
+    
+*** 
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+
+    #+BEAMER: \bigskip \pause
+
+    Intuitively: $\mathcal{M}(a)$ is the space where the side effects of some value of type $a$ happen.
+    #+BEAMER: \pause
+    #+ATTR_BEAMER: :overlay <+->
+    - $\unit{(\cdot)}$ lifts pure values into that space.
+    - $\bind$ sequences programs inhabiting that space by binding the result of one to the input of the next.
+
+    #+BEAMER: \pause
+    #+BEGIN_CENTER
+    *The operators must satisfy the Monad Laws.*
+    #+END_CENTER
+
+** The Monad Laws
+   #+BEGIN_EXPORT latex
+   \begin{align*}
+   \unit{v}\ \bind\ k &= k v\tag{Left Identity}\\[2mm]
+   m\ \bind\ \lda{v}{\unit{v}} &= m\tag{Right Identity}\\[2mm]
+   (m\ \bind\ n)\ \bind\ o &= m\ \bind\ \lda{v}{\appS{n}{v}\ \bind\ o}\tag{Associativity}
+   \end{align*}
+   #+END_EXPORT
+
+** First case: quantification
+   In the Continuation monad, scope-taking is a kind of side effect.
+
+*** $\mathcal{C}$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.5
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \onslide<1->{\mathcal{C}(a) :\ &(a \ra o) \ra o\\[3mm]}
+    \onslide<2->{\unit{(\cdot)} :\ &a \ra (a \ra o) \ra o\\}
+    \onslide<3->{\unit{v} =\ &\lda{c}{\appS{c}{v}}\\[3mm]}
+    \onslide<4->{(\bind) :\ &((a \ra o) \ra o)\\
+    \ra\ &(a \ra (b \ra o) \ra o)\\
+    \ra\ &(b \ra o) \ra o\\}
+    \onslide<5>{m\ \bind\ k =\ &\lda{c}{m (\lda{v}{\appS{\appS{k}{v}}{c}})}}
+    \end{align*}
+    #+END_EXPORT
+
+** How it works
+   :PROPERTIES:
+   :BEAMER_opt: t
+   :END:
+   1. Ashley petted every dog.
+
+   #+BEGIN_EXPORT latex
+   \only<2>{
+   \begin{align*}
+   \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{C}(e)\tag{Lexicon}\\
+   \abbrev{petted} &= \unit{\ct{pet}} : \mathcal{C}(e \ra t)\\
+   \abbrev{every} &= \lda{P, c}{\quant{\forall}{x}{\appS{P}{x} \ra \appS{c}{x}}} : (e \ra t) \ra (e \ra t) \ra t\\
+   \abbrev{dog} &= \ct{dog} : e \ra t
+   \end{align*}
+   \only<4>{\begin{align*}
+   (\triangleright) &: \mathcal{C}(a \ra b) \ra \mathcal{C}(a) \ra \mathcal{C}(b)\tag{Grammar}\\
+   m \triangleright n &= m\ \bind\ \lda{f}{n\ \bind\ \lda{x}{\unit{\appC{f}{x}}}}\\
+   &= \lda{c}{\appS{m}{(\lda{f}{\appS{n}{(\lda{x}{\appS{c}{\appC{f}{x}}})}})}}\\[2mm]
+   (\triangleleft) &: \mathcal{C}(a) \ra \mathcal{C}(a \ra b) \ra \mathcal{C}(b)\\
+   m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
+   &= \lda{c}{\appS{m}{(\lda{x}{\appS{n}{(\lda{f}{\appS{c}{\appC{f}{x}}})}})}}
+   \end{align*}}
+   }
+   \only<3-4>{
+   \begin{align*}
+   \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{C}(e)\tag{Lexicon}\\
+   \abbrev{petted} &= \unit{\ct{pet}} : \mathcal{C}(e \ra t)\\
+   \abbrev{every} &= \lda{P, c}{\quant{\forall}{x}{\appS{P}{x} \ra \appS{c}{x}}} : (e \ra t) \ra \mathcal{C}(e)\\
+   \abbrev{dog} &= \ct{dog} : e \ra t
+   \end{align*}
+   \only<4>{\begin{align*}
+   (\triangleright) &: \mathcal{C}(a \ra b) \ra \mathcal{C}(a) \ra \mathcal{C}(b)\tag{Grammar}\\
+   m \triangleright n &= m\ \bind\ \lda{f}{n\ \bind\ \lda{x}{\unit{\appC{f}{x}}}}\\
+   &= \lda{c}{\appS{m}{(\lda{f}{\appS{n}{(\lda{x}{\appS{c}{\appC{f}{x}}})}})}}\\[2mm]
+   (\triangleleft) &: \mathcal{C}(a) \ra \mathcal{C}(a \ra b) \ra \mathcal{C}(b)\\
+   m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
+   &= \lda{c}{\appS{m}{(\lda{x}{\appS{n}{(\lda{f}{\appS{c}{\appC{f}{x}}})}})}}
+   \end{align*}}
+   }
+   \centering
+   \only<5->{\bigskip\bigskip\bigskip\bigskip}
+   \only<5>{$\abbrev{ashley} \triangleleft (\abbrev{petted} \triangleright \appS{\abbrev{every}}{\abbrev{dog}})$}
+   \only<6-7>{$\unit{\ct{a}} \triangleleft (\unit{\ct{pet}} \triangleright \appS{\abbrev{every}}{\ct{dog}})$\\\bigskip\bigskip\only<7>{expand $\appS{\abbrev{every}}{\ct{dog}}$\ldots}}
+   \only<8-9>{$\unit{\ct{a}} \triangleleft (\unit{\ct{pet}} \triangleright \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{x}}})$\\\bigskip\bigskip\only<9>{expand $\triangleright$\ldots}}
+   \only<10-11>{$\unit{\ct{a}} \triangleleft \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\ct{pet}}{x}}}}$\\\bigskip\bigskip\only<11>{expand $\triangleleft$\ldots}}
+   \only<12-13>{$\lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\appS{\ct{pet}}{x}}{\ct{a}}}}}$\\\bigskip\bigskip\only<13>{to obtain a proposition, apply to the identity function\ldots}}
+   \only<14>{$\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{pet}}{x}}{\ct{a}}}$}
+   #+END_EXPORT
+
+** Summary
+   Using continuations to manage scope-taking:
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - scopal expressions take scope over their continuations, which are reified as they compose
+   - values take scope trivially (applying Montague's ``lift'')
+   
+** Second case: anaphora
+   In the State monad, we may read from and write to an environment.
+*** $\mathcal{S}$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.5
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \onslide<1->{\mathcal{S}(a) :\ &s \ra (s, a)\\[3mm]}
+    \onslide<2->{\unit{(\cdot)} :\ &a \ra s \ra (s, a)\\}
+    \onslide<3->{\unit{v} =\ &\lda{s}{\langle s, v\rangle}\\[3mm]}
+    \onslide<4->{(\bind) :\ &(s \ra (s, a))\\
+    \ra\ &(a \ra s \ra (s, b))\\
+    \ra\ &s \ra (s, b)\\}
+    \onslide<5>{m\ \bind\ k =\ &\lda{s}{\abbrev{let}\ \langle s^\prime, v\rangle = m s\ \abbrev{in}\ \appS{\appS{k}{v}}{s^\prime}}}
+    \end{align*}
+    #+END_EXPORT
+
+** How it works
+   :PROPERTIES:
+   :BEAMER_opt: t
+   :END:
+   2. Ashley petted herself.
+
+   #+BEGIN_EXPORT latex
+   \only<2>{
+   \begin{align*}
+   \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{S}(e)\tag{Lexicon}\\
+   \abbrev{petted} &= \unit{\ct{pet}} : \mathcal{S}(e \ra t)\\
+   \abbrev{herself} &= \lda{s}{\langle s, \appS{\abbrev{sel}}{s}\rangle} : s \ra (s, e)
+   \end{align*}}
+   \only<3>{\begin{align*}
+   \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{S}(e)\tag{Lexicon}\\
+   \abbrev{petted} &= \unit{\ct{pet}} : \mathcal{S}(e \ra t)\\
+   \abbrev{herself} &= \lda{s}{\langle s, \appS{\abbrev{sel}}{s}\rangle} : \mathcal{S}(e)
+   \end{align*}}
+   \only<4-5>{\begin{align*}
+   (\triangleright) &: \mathcal{S}(a \ra b) \ra \mathcal{S}(a) \ra \mathcal{S}(b)\tag{Grammar}\\
+   m \triangleright n &= m\ \bind\ \lda{f}{n\ \bind\ \lda{x}{\unit{\appC{f}{x}}}}\\
+   &= \lda{s}{\abbrev{let}\ \langle f, s^\prime\rangle = \appS{m}{s}\ \abbrev{in}\ \abbrev{let}\ \langle x, s^{\prime\prime}\rangle = \appS{n}{s^\prime}\ \abbrev{in}\ \langle\appS{f}{x}, s^{\prime\prime}\rangle}\\[3mm]
+   (\triangleleft) &: \mathcal{S}(a) \ra \mathcal{S}(a \ra b) \ra \mathcal{S}(b)\\
+   m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
+   &= \lda{s}{\abbrev{let}\ \langle x, s^\prime\rangle = \appS{m}{s}\ \abbrev{in}\ \abbrev{let}\ \langle f, s^{\prime\prime}\rangle = \appS{n}{s^\prime}\ \abbrev{in}\ \langle\appS{f}{x}, s^{\prime\prime}\rangle}\\[4mm]
+   \onslide<5>{\dr{(\cdot)} &: \mathcal{S}(e) \ra \mathcal{S}(e)\\
+   \dr{m} &= m\ \bind\ \lda{x, s}{\langle\append{x}{s}, x\rangle}}
+   \end{align*}}
+   \centering
+   \only<6->{\bigskip\bigskip\bigskip\bigskip}
+   \only<6>{$\dr{\abbrev{ashley}} \triangleleft (\abbrev{petted} \triangleright \abbrev{herself})$}
+   \only<7>{$\dr{\abbrev{ashley}} \triangleleft (\unit{\ct{pet}} \triangleright \abbrev{herself})$}
+   \only<8>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{pet}} \triangleright \abbrev{herself})$}
+   \only<9-10>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{pet}} \triangleright \lda{s}{\langle s,\appS{\abbrev{sel}}{s}\rangle})$\\\bigskip\bigskip\only<10>{expand $\triangleright$\ldots}}
+   \only<11-12>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft \lda{s}{\langle s,\appS{\ct{pet}}{\appC{\abbrev{sel}}{s}}\rangle}$\\\bigskip\bigskip\only<12>{expand $\triangleleft$\ldots}}
+   \only<13>{$\lda{s}{\langle\append{\ct{a}}{s}, \appS{\appS{\ct{pet}}{\appC{\abbrev{sel}}{s}}}{\ct{a}}\rangle}$}
+   #+END_EXPORT
+
+** Summary
+   Using State to manage anaphora:
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - expressions that introduce discourse referents or engage in anaphora engage with the environment
+   - values are trivially stateful, by passing the environment on, untouched  
+   
+** Combining quantification and anaphora
+   How might one do this?\\
+
+   #+BEAMER: \bigskip \pause
+
+   Answer: one may use /monad transformers/ (the strategy adopted by cite:shan_monads_2002, and then, by cite:charlow_semantics_2014).
+
+** Monad transformers
+   $\mathcal{C}$ and $\mathcal{S}$ are associated with corresponding monad transformers, $\mathcal{C}_T$ and $\mathcal{S}_T$.
+
+*** $\mathcal{M}_T$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.8
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \mathcal{M}_T &: (\mathcal{T} \ra \mathcal{T}) \ra \mathcal{T} \ra \mathcal{T}\\
+    \unit{(\cdot)} &: a \ra \mathcal{M}_T(\mathcal{M}_0)(b)\\
+    (\bind) &: \mathcal{M}_T(\mathcal{M}_0)(a) \ra (a \ra \mathcal{M}_T(\mathcal{M}_0)(b)) \ra \mathcal{M}_T(\mathcal{M}_0)(b)
+    \end{align*}
+    #+END_EXPORT
+
+*** 
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+BEAMER: \bigskip
+    given one of $\mathcal{C}$ or $\mathcal{S}$ as the /underlying monad/, we may apply one of $\mathcal{S}_T$ or $\mathcal{C}_T$ to it\ldots
+
+** The Continuation monad transformer
+*** $\mathcal{C}_T$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.75
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \mathcal{C}_T(\mathcal{M}_0)(a) :\ &(a \ra \mathcal{M}_0(o)) \ra \mathcal{M}_0(o)\\[3mm]
+    \unit{(\cdot)} :\ &a \ra (a \ra \mathcal{M}_0(o)) \ra \mathcal{M}_0(o)\\
+    \unit{v} =\ &\lda{c}{\appS{c}{v}}\\[3mm]
+    (\bind) :\ &((a \ra \mathcal{M}_0(o)) \ra \mathcal{M}_0(o))\\
+    \ra\ &(a \ra (b \ra \mathcal{M}_0(o)) \ra \mathcal{M}_0(o))\\
+    \ra\ &(b \ra \mathcal{M}_0(o)) \ra \mathcal{M}_0(o)\\
+    m\ \bind\ k =\ &\lda{c}{m (\lda{v}{\appS{\appS{k}{v}}{c}})}
+    \end{align*}
+    #+END_EXPORT
+
+** The State monad transformer
+*** $\mathcal{S}_T$
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :BEAMER_col: 0.75
+    :END:
+    #+BEGIN_EXPORT latex
+    \vspace{-5mm}
+    \begin{align*}
+    \mathcal{S}_T(\mathcal{M}_0)(a) :\ &s \ra \mathcal{M}_0((s, a))\\[3mm]
+    \unit{(\cdot)} :\ &a \ra s \ra \mathcal{M}_0((s, a))\\
+    \unit{v} =\ &\lda{s}{\unit{\langle s, v\rangle}}\\[3mm]
+    (\bind) :\ &(s \ra \mathcal{M}_0((s, a)))\\
+    \ra\ &(a \ra (s \ra \mathcal{M}_0((s, b))))\\
+    \ra\ &s \ra \mathcal{M}_0((s, b))\\
+    m\ \bind\ k =\ &\lda{s}{\appS{m}{s}\ \bind\ \lda{p}{\abbrev{let}\ \langle s^\prime, v\rangle = p\ \abbrev{in}\ \appS{\appS{k}{v}}{s^\prime}}}
+    \end{align*}
+    #+END_EXPORT
+
+** To summarize\ldots
+   This general strategy can be made to work extremely well citep:charlow_semantics_2014.
+
+   #+BEAMER: \bigskip \pause
+   But, how do we decide which monad transformer to apply to which monad?  
+   #+BEAMER: \pause
+   1. Every dog licked Ashley. *He is friendly.
+
+   #+BEAMER: \bigskip \pause
+   It turns out we must apply $\mathcal{C}_T$ to $\mathcal{S}$ and *not* $\mathcal{S}_T$ to $\mathcal{C}$.
+
+   #+BEAMER: \bigskip \pause
+   If we adopt the transformers approach from the start\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+     - we throw out our generalized quantifier meaning for /every dog/
+     - the type of /every dog/ becomes $(e \ra \mathcal{M}_0(t)) \ra \mathcal{M}_0(t)$ \ldots
+       - but a generic meaning for /every/ cannot be written\ldots we are required to know what $\mathcal{M}_0$ is!
+       - even then, the meaning the quantifier will be somewhat stipulative, e.g., to account for the data above (though, it can be made to follow from a small set of primitives, as in cite:charlow_semantics_2014)
+
+** The problem       
+   The transformers approach, when used generically, prevents us from writing meanings. When used non-generically, it loses extensibility.
+
+   #+BEAMER: \bigskip \pause
+   Might we salvage our individual analyses in some other way? In doing so, might we account for data like (1)?
+    
 * Algebraic effects and handlers
 
 ** We are here
-#+TOC: headlines [currentsection]
+   #+TOC: headlines [currentsection]
 
-** A new section
-Here is some text that will go in the new section.
+** Background
+   Algebraic effects and handlers provide a means of writing extensible code, recently especially popular in functional programming.[fn::Original insights about the relation between algebra and computational effects are from citealt:plotkin_semantics_2001,plotkin_algebraic_2003.] 
 
+  #+BEAMER: \bigskip \pause
+  Jirka Mar\v{s}{\'i}k has done significant work importing algebraic effects into linguistic semantics, culminating in his dissertation citep:marsik_algebraic_2014,marsik_introducing_2016,marsik_effects_2016
+  #+BEAMER: \pause
+  #+ATTR_BEAMER: :overlay <+->
+  - develops a typed extension of \lambda-calculus
+  - studies an array of phenomena algebraically, including quantification, presupposition, conventional implicature, and deixis
+  - anaphora is approached using the compositional DRT of cite:degroote_towards_2006
+  
+** The basic idea
+   Instead of fixing a monad transformer stack, we may study the side effects of individual phenomena independently\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - by characterizing them algebraically
+   - and then combining the resulting algebras
+
+   #+BEAMER: \bigskip \pause
+   I will take a different approach from Mar\v{s}{\'i}k, by\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - staying in STLC (with unit)
+   - characterizing anaphora in purely algebraic terms
+   - sticking with a traditional analysis of quantifiers, i.e., whereon they denote sets of sets
+
+** Algebraic signatures
+   An algebraic signature is a set $E$ of operations, each one associated with a /parameter/ $p$ and an /arity/ $a$ (both types), along with a special operation $\eta$ (`return').
+
+   #+BEGIN_CENTER
+   $E = \{{\abbrev{op}_1}_{p_1 \leadsto a_1}, \ldots, {\abbrev{op}_n}_{p_n \leadsto a_n}, \eta\}$
+   #+END_CENTER
+
+    #+BEAMER: \pause
+    Elements of the algebra with signature $E$ inhabit a type which we call $\mathcal{F}_E(v)$ (for some /return/ type $v$).
+
+    #+BEAMER: \bigskip \pause
+    To say operator $\abbrev{op}_{p \leadsto a}$ is in signature $E$ means that it has the following type signature:
+    #+BEGIN_CENTER
+    $\abbrev{op}_{p \leadsto a} : p \ra (a \ra \mathcal{F}_{E}(v)) \ra \mathcal{F}_E(v)$
+    #+END_CENTER
+
+    #+BEAMER: \bigskip \pause
+    $\eta$ always has the following type signature:
+    #+BEGIN_CENTER
+    $\eta : v \ra \mathcal{F}_E(v)$
+    #+END_CENTER
+
+** Algebraic laws
+   In addition to the signature, an algebra determines a set of equations that must hold among its elements, of the form
+   #+BEGIN_CENTER
+   $\abbrev{op}_i(p_i; \ldots) = \abbrev{op}_j(p_j; \ldots)$
+   #+END_CENTER
+   
+** The State algebra (signature)
+   instead of a State monad, we will have a State algebra
+
+   #+BEAMER: \bigskip \pause
+   two operations, $\abbrev{get}_{\star \leadsto s}$ and $\abbrev{put}_{s \leadsto \star}$
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - $s$ is the type of the state
+   - $\star$ is the unit type (one inhabitant, also called $\star$)
+     
+   #+BEAMER: \bigskip \pause
+   Some example elements of the State algebra\ldots
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - $\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\appS{\eta}{s}}) : \mathcal{F}_{\{\abbrev{get}_{\star \leadsto s}, \abbrev{put}_{s \leadsto \star}\}}(s)$
+   - $\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(\append{\ct{a}}{s}; \lda{\star}{\appS{\eta}{s}})}) : \mathcal{F}_{\{\abbrev{get}_{\star \leadsto s}, \abbrev{put}_{s \leadsto \star}\}}(s)$
+   - $\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(\append{\ct{a}}{s}; \lda{\star}{\appS{\eta}{\ct{a}}})}) : \mathcal{F}_{\{\abbrev{get}_{\star \leadsto s}, \abbrev{put}_{s \leadsto \star}\}}(e)$
+
+** The State algebra (laws)
+   Reading the environment twice is no better than reading it once:
+   #+BEGIN_CENTER
+   $\abbrev{get}_{\star \leadsto s}(\star; \lda{g}{\abbrev{get}_{\star \leadsto s}(\star; \lda{g^\prime}{\appS{\appS{k}{g}}{g^\prime}})}) = \abbrev{get}_{\star \leadsto s}(\star; \lda{g}{\appS{\appS{k}{g}}{g}})$
+   #+END_CENTER
+   
+   #+BEAMER: \bigskip \pause
+   Putting something back where you got it is the same as doing nothing:
+   #+BEGIN_CENTER
+   $\abbrev{get}_{\star \leadsto s}(\star; \lda{g}{\abbrev{put}_{s \leadsto \star}(g; k)})) = k \star$
+   #+END_CENTER
+
+   #+BEAMER: \bigskip \pause
+   Getting something that you just put back is the same as doing nothing:
+   #+BEGIN_CENTER
+   $\abbrev{put}_{s \leadsto \star}(g; \lda{\star}{\abbrev{get}_{\star \leadsto s}(\star; k)}) = \abbrev{put}_{s \leadsto \star}(g; \lda{\star}{\appS{k}{g}})$
+   #+END_CENTER
+   
+   #+BEAMER: \bigskip \pause
+   Putting twice overwrites:
+   #+BEGIN_CENTER
+   $\abbrev{put}_{s \leadsto \star}(g; \lda{\star}{\abbrev{put}_{s \leadsto \star}(g^\prime; k)}) = \abbrev{put}_{s \leadsto \star}(g^\prime; k)$
+   #+END_CENTER
+
+** The Quantifier algebra (signature)
+   one operation, $\abbrev{scope}_{(e \ra t) \ra t \leadsto e}$
+
+   #+BEAMER: \bigskip \pause
+   An example element of the Quantifier algebra\ldots
+   - \small $\abbrev{scope}_{(e \ra t) \ra t \leadsto e}((\lda{k}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{k}{x}}}); \lda{y}{\appS{\eta}{\appC{\ct{sleep}}{y}}}) : \mathcal{F}_{\{\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\}(t)}$
+
+** The Quantifier algebra (laws)
+   Quantifying in:
+   #+BEGIN_CENTER
+   $\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(q; \lda{x}{\appS{\eta}{\appC{k}{x}}}) = \appS{\eta}{\appC{q}{k}}$
+   #+END_CENTER
+
+** Combing the algebras\ldots
+   is just a matter of
+   #+BEAMER: \pause
+   #+ATTR_BEAMER: :overlay <+->
+   - collecting the operations into one signature
+   - combining the equations
+   
 * Making it Montagovian
 
 ** We are here
-#+TOC: headlines [currentsection]
+   #+TOC: headlines [currentsection]
 
-** Making it Montagovian
+** How to do it
+   What we want is an encoding of the operations, as well as a way of /translating/ \lambda-terms with lots of operations into ones with fewer operations in a way that respects the algebraic laws.
 
+   #+BEAMER: \bigskip \pause
+   This is called ``handling'' the operations.
+
+** Encoding operations
+   To encode operations, we define a family of functors $\mathcal{F} : \mathcal{T}_\leadsto^* \ra \mathcal{T} \ra \mathcal{T}$, where
+   - $\mathcal{T}_\leadsto^*$ is the free monoid (i.e., of lists) over $\mathcal{T}_\leadsto = \{p \leadsto a \divd p, a \in \mathcal{T}\}$
+
+     #+BEAMER: \pause
+  #+BEGIN_EXPORT latex
+  \begin{align*}
+  \mathcal{F}_\epsilon(v) &= v\\[2mm]
+  \mathcal{F}_{p \leadsto a, l}(v) &= (p \ra (a \ra \mathcal{F}_l(v)) \ra o) \ra o 
+  \end{align*}
+  #+END_EXPORT
+   
 * Quantification and anaphora
   
 ** We are here
-#+TOC: headlines [currentsection]
+   #+TOC: headlines [currentsection]
+
+** References
+   :PROPERTIES:
+   :BEAMER_opt: allowframebreaks
+   :END:
+   bibliography:claspoct282020.bib

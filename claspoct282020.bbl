@@ -1,7 +1,126 @@
-\begin{thebibliography}{0}
+\begin{thebibliography}{17}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{}\fi
+
+\bibitem[{Barker(2002)}]{barker_continuations_2002}
+Barker, Chris. 2002.
+\newblock Continuations and the {Nature} of {Quantification}.
+\newblock {\em Natural Language Semantics\/} 10:211--242.
+\newblock \urlprefix\url{https://doi.org/10.1023/A:1022183511876}.
+
+\bibitem[{Barker and Shan(2014)}]{barker_continuations_2014}
+Barker, Chris, and Chung-chieh Shan. 2014.
+\newblock {\em Continuations and natural language\/}, volume~53.
+\newblock Oxford studies in theoretical linguistics.
+
+\bibitem[{Charlow(2014)}]{charlow_semantics_2014}
+Charlow, Simon. 2014.
+\newblock On the semantics of exceptional scope.
+\newblock {PhD} {Thesis}, NYU, New York.
+\newblock \urlprefix\url{https://semanticsarchive.net/Archive/2JmMWRjY}.
+
+\bibitem[{Cooper(1983)}]{cooper_quantification_1983}
+Cooper, R. 1983.
+\newblock {\em Quantification and {Syntactic} {Theory}\/}.
+\newblock Studies in {Linguistics} and {Philosophy}. Springer Netherlands.
+\newblock \urlprefix\url{https://www.springer.com/gp/book/9789027714848}.
+
+\bibitem[{de~Groote(2006)}]{degroote_towards_2006}
+de~Groote, Philippe. 2006.
+\newblock Towards a {Montagovian} {Account} of {Dynamics}.
+\newblock {\em Semantics and Linguistic Theory\/} 16:1--16.
+\newblock
+  \urlprefix\url{https://journals.linguisticsociety.org/proceedings/index.php/SALT/article/view/2952},
+  number: 0.
+
+\bibitem[{Heim and Kratzer(1998)}]{heim_semantics_1998}
+Heim, Irene, and Angelika Kratzer. 1998.
+\newblock {\em Semantics in {Generative} {Grammar}\/}.
+\newblock Malden: Blackwell.
+
+\bibitem[{Hendriks(1993)}]{hendriks_studied_1993}
+Hendriks, H. L.~W. 1993.
+\newblock {\em Studied flexibility : categories and types in syntax and
+  semantics\/}.
+\newblock AmsterdamInstitute for Logic, Language and Computation.
+\newblock
+  \urlprefix\url{https://dare.uva.nl/search?identifier=2a784df2-19f2-4d8a-8096-6a4c05db0316}.
+
+\bibitem[{Keller(1988)}]{keller_nested_1988}
+Keller, William~R. 1988.
+\newblock Nested {Cooper} {Storage}: {The} {Proper} {Treatment} of
+  {Quantification} in {Ordinary} {Noun} {Phrases}.
+\newblock In {\em Natural {Language} {Parsing} and {Linguistic} {Theories}\/},
+  ed. U.~Reyle and C.~Rohrer, Studies in {Linguistics} and {Philosophy},
+  432--447. Dordrecht: Springer Netherlands.
+\newblock \urlprefix\url{https://doi.org/10.1007/978-94-009-1337-0_15}.
+
+\bibitem[{Kobele(2018)}]{kobele_cooper_2018}
+Kobele, Gregory~M. 2018.
+\newblock The {Cooper} {Storage} {Idiom}.
+\newblock {\em Journal of Logic, Language and Information\/} 27:95--131.
+\newblock \urlprefix\url{https://doi.org/10.1007/s10849-017-9263-1}.
+
+\bibitem[{Maršík and Amblard(2016)}]{marsik_introducing_2016}
+Maršík, Jirka, and Maxime Amblard. 2016.
+\newblock Introducing a {Calculus} of {Effects} and {Handlers} for {Natural}
+  {Language} {Semantics}.
+\newblock In {\em Formal {Grammar}\/}, ed. Annie Foret, Glyn Morrill, Reinhard
+  Muskens, Rainer Osswald, and Sylvain Pogodalla, Lecture {Notes} in {Computer}
+  {Science}, 257--272. Berlin, Heidelberg: Springer.
+
+\bibitem[{Maršík(2016)}]{marsik_effects_2016}
+Maršík, Jiří. 2016.
+\newblock Effects and handlers in natural language.
+\newblock phdthesis, Université de Lorraine.
+\newblock \urlprefix\url{https://hal.inria.fr/tel-01417467}.
+
+\bibitem[{Maršík and Amblard(2014)}]{marsik_algebraic_2014}
+Maršík, Jiří, and Maxime Amblard. 2014.
+\newblock Algebraic {Effects} and {Handlers} in {Natural} {Language}
+  {Interpretation}.
+\newblock In {\em Natural {Language} and {Computer} {Science}\/}, ed.
+  Valeria~de Paiva, Walther Neuper, Pedro Quaresma, Christian Retoré,
+  Lawrence~S. Moss, and Jordi Saludes, volume TR 2014-002 of {\em Joint
+  {Proceedings} of the {Second} {Workshop} on {Natural} {Language} and
+  {Computer} {Science} ({NLCS}'14) \& 1st {International} {Workshop} on
+  {Natural} {Language} {Services} for {Reasoners} ({NLSR} 2014)\/}. Vienne,
+  Austria: Center for Informatics and Systems of the University of Coimbra.
+\newblock \urlprefix\url{https://hal.archives-ouvertes.fr/hal-01079206}.
+
+\bibitem[{Montague(1973)}]{montague_proper_1973}
+Montague, Richard. 1973.
+\newblock The {Proper} {Treatment} of {Quantification} in {Ordinary} {English}.
+\newblock In {\em Approaches to {Natural} {Language}: {Proceedings} of the 1970
+  {Stanford} {Workshop} on {Grammar} and {Semantics}\/}, ed. K.~J.~J. Hintikka,
+  J.~M.~E. Moravcsik, and P.~Suppes, Synthese {Library}, 221--242. Dordrecht:
+  Springer Netherlands.
+\newblock \urlprefix\url{https://doi.org/10.1007/978-94-010-2506-5_10}.
+
+\bibitem[{Plotkin and Power(2001)}]{plotkin_semantics_2001}
+Plotkin, Gordon, and John Power. 2001.
+\newblock Semantics for {Algebraic} {Operations}.
+\newblock {\em Electronic Notes in Theoretical Computer Science\/} 45:332--345.
+\newblock
+  \urlprefix\url{http://www.sciencedirect.com/science/article/pii/S1571066104809708}.
+
+\bibitem[{Plotkin and Power(2003)}]{plotkin_algebraic_2003}
+Plotkin, Gordon, and John Power. 2003.
+\newblock Algebraic {Operations} and {Generic} {Effects}.
+\newblock {\em Applied Categorical Structures\/} 11:69--94.
+\newblock \urlprefix\url{https://doi.org/10.1023/A:1023064908962}.
+
+\bibitem[{Shan(2002)}]{shan_monads_2002}
+Shan, Chung-chieh. 2002.
+\newblock Monads for natural language semantics.
+\newblock {\em arXiv:cs/0205026\/}
+  \urlprefix\url{http://arxiv.org/abs/cs/0205026}, arXiv: cs/0205026.
+
+\bibitem[{Steedman(2000)}]{steedman_syntactic_2000}
+Steedman, Mark. 2000.
+\newblock {\em The syntactic process\/}, volume~24.
+\newblock MIT press Cambridge, MA.
 
 \end{thebibliography}

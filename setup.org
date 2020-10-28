@@ -13,7 +13,7 @@
 #+BEAMER_HEADER: \setbeamercolor*{palette tertiary}{fg=white,bg=gbred!90}
 # #+BEAMER_HEADER: \setbeamercolor*{palette quaternary}{fg=white,bg=gbred}
 #+BEAMER_HEADER: \setbeamercolor{section in toc}{fg=gbbg,bg=white}
-#+BEAMER_HEADER: \setbeamercolor{alerted text}{fg=gbpurple}
+#+BEAMER_HEADER: \setbeamercolor{alerted text}{fg=gblightred}
 # #+BEAMER_HEADER: \setbeamercolor{titlelike}{bg=gbbg!50,fg=gbgreen}
 #+BEAMER_HEADER: \setbeamercolor{frametitle}{bg=gbgray!10!white,fg=gbblue}
 #+BEAMER_HEADER: \setbeamercolor{title}{fg=gbred}
@@ -36,19 +36,12 @@
 #+BEAMER_HEADER: \def\divd{\ |\ }
 #+BEAMER_HEADER: \newcommand{\corners}[1]{\ulcorner#1\urcorner}
 #+BEAMER_HEADER: \newcommand{\uparrowed}[1]{\stackon[0pt]{$#1$}{$\uparrow$}}
-#+BEAMER_HEADER: \newcommand{\unit}[2]{#2\textsuperscript{\uparrowed{#1}}}
+#+BEAMER_HEADER: \newcommand{\unit}[1]{#1^\eta}
 #+BEAMER_HEADER: \newlength\bindwidth
-#+BEAMER_HEADER: \newcommand{\bindsymb}[1]{{{\settowidth{\bindwidth}{\ }\mathtt{>\hspace{-1.7\bindwidth}>\hspace{-1.7\bindwidth}=}}_#1}}
-#+BEAMER_HEADER: \newcommand{\bind}[2]{#2\textsuperscript{$\bindsymb{#1}$}}
-#+BEAMER_HEADER: \newcommand{\newframebreaks}[1]{
-#+BEAMER_HEADER:   \begin{frame}[allowframebreaks]{\secname}
-#+BEAMER_HEADER:     \framesubtitle{\subsecname}
-#+BEAMER_HEADER:     #1
-#+BEAMER_HEADER:   \end{frame}
-#+BEAMER_HEADER: }
-#+BEAMER_HEADER: \newcommand{\newframe}[1]{
-#+BEAMER_HEADER:   \begin{frame}{\secname}
-#+BEAMER_HEADER:     \framesubtitle{\subsecname}
-#+BEAMER_HEADER:     #1
-#+BEAMER_HEADER:   \end{frame}
-#+BEAMER_HEADER: }
+#+BEAMER_HEADER: \newcommand{\bind}{\settowidth{\bindwidth}{\ }\mathtt{>\hspace{-1.7\bindwidth}>\hspace{-1.7\bindwidth}=}}
+#+BEAMER_HEADER: \newcommand{\abbrev}[1]{{\footnotesize\texttt{#1}}}
+#+BEAMER_HEADER: \def\ra{\rightarrow}
+#+BEAMER_HEADER: \newcommand{\dr}[1]{#1^\blacktriangleright}
+#+BEAMER_HEADER: \newlength\appendwidth
+#+BEAMER_HEADER: \newcommand{\append}[2]{\settowidth{\appendwidth}{\ }#1\hspace{-\appendwidth}::\hspace{-\appendwidth}#2}
+#+BEAMER_HEADER: \setbeamertemplate{frametitle continuation}{}
