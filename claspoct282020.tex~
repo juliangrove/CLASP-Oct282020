@@ -1,4 +1,4 @@
-% Created 2020-10-27 Tue 21:03
+% Created 2020-10-28 Wed 01:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[T1]{fontenc}
@@ -95,13 +95,13 @@
 
 
 \section{Side effects in linguistic semantics}
-\label{sec:org051b50c}
+\label{sec:org8f86e8c}
 
-\begin{frame}[label={sec:orgcefc161}]{We are here}
+\begin{frame}[label={sec:orgb506ae1}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:org6c9c1b7}]{Semantics}
+\begin{frame}[label={sec:org70ee7ed}]{Semantics}
 Semantics is for\ldots
 \pause
 \begin{itemize}[<+->]
@@ -114,7 +114,7 @@ Semantics is for\ldots
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgd1fa9e0}]{Montague}
+\begin{frame}[label={sec:orgc3dc53b}]{Montague}
 \begin{center}
 \includegraphics[width=60px]{./montague.jpg}
 \end{center}
@@ -129,7 +129,7 @@ Semantics is for\ldots
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgaf0bcab}]{Functional application}
+\begin{frame}[label={sec:org517683b}]{Functional application}
 \citealt{montague_proper_1973}:
 \begin{center}
 \includegraphics[width=300px]{./fa_syntax.jpg}
@@ -150,7 +150,7 @@ Semantics is for\ldots
 \end{forest}
 \end{frame}
 
-\begin{frame}[label={sec:org0e43594}]{Quantifying in}
+\begin{frame}[label={sec:org8fd7e39}]{Quantifying in}
 \begin{center}
 \includegraphics[width=300px]{./roq_syntax.jpg}
 \end{center}
@@ -159,7 +159,7 @@ Semantics is for\ldots
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgd2de2fe}]{Quantifying in}
+\begin{frame}[label={sec:org1ca6e6e}]{Quantifying in}
 \emph{Every dog slept}\\
 \centering
 \begin{forest}
@@ -178,7 +178,7 @@ Semantics is for\ldots
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org3f37a3d}]{Since then}
+\begin{frame}[label={sec:orge1b92d9}]{Since then}
 Many techniques since Montague for establishing seemingly non-local quantifier-variable dependencies\ldots
 \pause
 \begin{itemize}[<+->]
@@ -194,7 +194,7 @@ Many techniques since Montague for establishing seemingly non-local quantifier-v
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org5f97b58}]{Side effects}
+\begin{frame}[label={sec:org8d1b0a2}]{Side effects}
 Programming languages may exhibit "impure" behaviors.
 \pause
 \begin{itemize}[<+->]
@@ -227,11 +227,11 @@ Programming languages may exhibit "impure" behaviors.
 \alert{Theories of side effects (e.g., monads) provide interfaces to impure behavior.} 
 \end{frame}
 
-\begin{frame}[label={sec:org9ea6a55}]{Linguistic side effects}
+\begin{frame}[label={sec:org8420072}]{Linguistic side effects}
 The effectful approach:
 \pause
 \begin{itemize}[<+->]
-\item identity linguistic phenomenon that appears to behave "impurely", i.e., by subverting compositionality
+\item identity linguistic phenomenon that appears to behave ``impurely'', i.e., by subverting compositionality
 \begin{itemize}
 \item e.g., quantification, anaphora, conventional implicature\ldots
 \end{itemize}
@@ -240,18 +240,19 @@ The effectful approach:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org52436e1}]{This talk}
+\begin{frame}[label={sec:org89cd4b9}]{This talk}
 \begin{itemize}[<+->]
 \item present two monadic interfaces to side effects: one for quantification and one anaphora
 \begin{itemize}
 \item the Continuation monad and the State monad, respectively
+\item analyses inspired by \cite{charlow_semantics_2014}
 \end{itemize}
 \item show how they may and \emph{may not} be combined
 \item introduce \emph{algebraic effects}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orge7fe901}]{Monads}
+\begin{frame}[label={sec:orgb7573b5}]{Monads}
 a functor \(\mathcal{M}\), equipped with two operators, \(\unit{(\cdot)}\) (`return') and \(\bind\) (`bind')
 
 \bigskip
@@ -284,7 +285,7 @@ Intuitively: \(\mathcal{M}(a)\) is the space where the side effects of some valu
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org9044bb8}]{The Monad Laws}
+\begin{frame}[label={sec:org66ac95b}]{The Monad Laws}
 \begin{align*}
 \unit{v}\ \bind\ k &= k v\tag{Left Identity}\\[2mm]
 m\ \bind\ \lda{v}{\unit{v}} &= m\tag{Right Identity}\\[2mm]
@@ -292,7 +293,7 @@ m\ \bind\ \lda{v}{\unit{v}} &= m\tag{Right Identity}\\[2mm]
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org89f18db}]{First case: quantification}
+\begin{frame}[label={sec:orgf3cd7d3}]{First case: quantification}
 In the Continuation monad, scope-taking is a kind of side effect.
 
 \begin{columns}
@@ -313,15 +314,15 @@ In the Continuation monad, scope-taking is a kind of side effect.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgb2a8aa5},t]{How it works}
+\begin{frame}[label={sec:orge8457ff},t]{How it works}
 \begin{enumerate}
-\item Ashley petted every dog.
+\item Ashley hugged every dog.
 \end{enumerate}
 
 \only<2>{
 \begin{align*}
 \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{C}(e)\tag{Lexicon}\\
-\abbrev{petted} &= \unit{\ct{pet}} : \mathcal{C}(e \ra t)\\
+\abbrev{hugged} &= \unit{\ct{hug}} : \mathcal{C}(e \ra t)\\
 \abbrev{every} &= \lda{P, c}{\quant{\forall}{x}{\appS{P}{x} \ra \appS{c}{x}}} : (e \ra t) \ra (e \ra t) \ra t\\
 \abbrev{dog} &= \ct{dog} : e \ra t
 \end{align*}
@@ -337,7 +338,7 @@ m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
 \only<3-4>{
 \begin{align*}
 \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{C}(e)\tag{Lexicon}\\
-\abbrev{petted} &= \unit{\ct{pet}} : \mathcal{C}(e \ra t)\\
+\abbrev{hugged} &= \unit{\ct{hug}} : \mathcal{C}(e \ra t)\\
 \abbrev{every} &= \lda{P, c}{\quant{\forall}{x}{\appS{P}{x} \ra \appS{c}{x}}} : (e \ra t) \ra \mathcal{C}(e)\\
 \abbrev{dog} &= \ct{dog} : e \ra t
 \end{align*}
@@ -352,15 +353,15 @@ m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
 }
 \centering
 \only<5->{\bigskip\bigskip\bigskip\bigskip}
-\only<5>{$\abbrev{ashley} \triangleleft (\abbrev{petted} \triangleright \appS{\abbrev{every}}{\abbrev{dog}})$}
-\only<6-7>{$\unit{\ct{a}} \triangleleft (\unit{\ct{pet}} \triangleright \appS{\abbrev{every}}{\ct{dog}})$\\\bigskip\bigskip\only<7>{expand $\appS{\abbrev{every}}{\ct{dog}}$\ldots}}
-\only<8-9>{$\unit{\ct{a}} \triangleleft (\unit{\ct{pet}} \triangleright \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{x}}})$\\\bigskip\bigskip\only<9>{expand $\triangleright$\ldots}}
-\only<10-11>{$\unit{\ct{a}} \triangleleft \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\ct{pet}}{x}}}}$\\\bigskip\bigskip\only<11>{expand $\triangleleft$\ldots}}
-\only<12-13>{$\lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\appS{\ct{pet}}{x}}{\ct{a}}}}}$\\\bigskip\bigskip\only<13>{to obtain a proposition, apply to the identity function\ldots}}
-\only<14>{$\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{pet}}{x}}{\ct{a}}}$}
+\only<5>{$\abbrev{ashley} \triangleleft (\abbrev{hugged} \triangleright \appS{\abbrev{every}}{\abbrev{dog}})$}
+\only<6-7>{$\unit{\ct{a}} \triangleleft (\unit{\ct{hug}} \triangleright \appS{\abbrev{every}}{\ct{dog}})$\\\bigskip\bigskip\only<7>{expand $\appS{\abbrev{every}}{\ct{dog}}$\ldots}}
+\only<8-9>{$\unit{\ct{a}} \triangleleft (\unit{\ct{hug}} \triangleright \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{x}}})$\\\bigskip\bigskip\only<9>{expand $\triangleright$\ldots}}
+\only<10-11>{$\unit{\ct{a}} \triangleleft \lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\ct{hug}}{x}}}}$\\\bigskip\bigskip\only<11>{expand $\triangleleft$\ldots}}
+\only<12-13>{$\lda{c}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{c}{\appC{\appS{\ct{hug}}{x}}{\ct{a}}}}}$\\\bigskip\bigskip\only<13>{to obtain a proposition, apply to the identity function\ldots}}
+\only<14>{$\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{hug}}{x}}{\ct{a}}}$}
 \end{frame}
 
-\begin{frame}[label={sec:org031d38f}]{Summary}
+\begin{frame}[label={sec:org098528e}]{Summary}
 Using continuations to manage scope-taking:
 \pause
 \begin{itemize}[<+->]
@@ -369,7 +370,7 @@ Using continuations to manage scope-taking:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org18e65ec}]{Second case: anaphora}
+\begin{frame}[label={sec:org920a76c}]{Second case: anaphora}
 In the State monad, we may read from and write to an environment.
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -389,20 +390,20 @@ In the State monad, we may read from and write to an environment.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgf440251},t]{How it works}
+\begin{frame}[label={sec:orgd6c0a22},t]{How it works}
 \begin{enumerate}
-\item Ashley petted herself.
+\item Ashley hugged herself.
 \end{enumerate}
 
 \only<2>{
 \begin{align*}
 \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{S}(e)\tag{Lexicon}\\
-\abbrev{petted} &= \unit{\ct{pet}} : \mathcal{S}(e \ra t)\\
+\abbrev{hugged} &= \unit{\ct{hug}} : \mathcal{S}(e \ra t)\\
 \abbrev{herself} &= \lda{s}{\langle s, \appS{\abbrev{sel}}{s}\rangle} : s \ra (s, e)
 \end{align*}}
 \only<3>{\begin{align*}
 \abbrev{ashley} &= \unit{\ct{a}} : \mathcal{S}(e)\tag{Lexicon}\\
-\abbrev{petted} &= \unit{\ct{pet}} : \mathcal{S}(e \ra t)\\
+\abbrev{hugged} &= \unit{\ct{hug}} : \mathcal{S}(e \ra t)\\
 \abbrev{herself} &= \lda{s}{\langle s, \appS{\abbrev{sel}}{s}\rangle} : \mathcal{S}(e)
 \end{align*}}
 \only<4-5>{\begin{align*}
@@ -417,15 +418,15 @@ m \triangleleft n &= m\ \bind\ \lda{x}{n\ \bind\ \lda{f}{\unit{\appC{f}{x}}}}\\
 \end{align*}}
 \centering
 \only<6->{\bigskip\bigskip\bigskip\bigskip}
-\only<6>{$\dr{\abbrev{ashley}} \triangleleft (\abbrev{petted} \triangleright \abbrev{herself})$}
-\only<7>{$\dr{\abbrev{ashley}} \triangleleft (\unit{\ct{pet}} \triangleright \abbrev{herself})$}
-\only<8>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{pet}} \triangleright \abbrev{herself})$}
-\only<9-10>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{pet}} \triangleright \lda{s}{\langle s,\appS{\abbrev{sel}}{s}\rangle})$\\\bigskip\bigskip\only<10>{expand $\triangleright$\ldots}}
-\only<11-12>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft \lda{s}{\langle s,\appS{\ct{pet}}{\appC{\abbrev{sel}}{s}}\rangle}$\\\bigskip\bigskip\only<12>{expand $\triangleleft$\ldots}}
-\only<13>{$\lda{s}{\langle\append{\ct{a}}{s}, \appS{\appS{\ct{pet}}{\appC{\abbrev{sel}}{s}}}{\ct{a}}\rangle}$}
+\only<6>{$\dr{\abbrev{ashley}} \triangleleft (\abbrev{hugged} \triangleright \abbrev{herself})$}
+\only<7>{$\dr{\abbrev{ashley}} \triangleleft (\unit{\ct{hug}} \triangleright \abbrev{herself})$}
+\only<8>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{hug}} \triangleright \abbrev{herself})$}
+\only<9-10>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft (\unit{\ct{hug}} \triangleright \lda{s}{\langle s,\appS{\abbrev{sel}}{s}\rangle})$\\\bigskip\bigskip\only<10>{expand $\triangleright$\ldots}}
+\only<11-12>{$(\lda{s}{\langle\append{\ct{a}}{s}, \ct{a}\rangle)} \triangleleft \lda{s}{\langle s,\appS{\ct{hug}}{\appC{\abbrev{sel}}{s}}\rangle}$\\\bigskip\bigskip\only<12>{expand $\triangleleft$\ldots}}
+\only<13>{$\lda{s}{\langle\append{\ct{a}}{s}, \appS{\appS{\ct{hug}}{\appC{\abbrev{sel}}{(\append{\ct{a}}{s})}}}{\ct{a}}\rangle}$}
 \end{frame}
 
-\begin{frame}[label={sec:org2692ff8}]{Summary}
+\begin{frame}[label={sec:org96e7ddc}]{Summary}
 Using State to manage anaphora:
 \pause
 \begin{itemize}[<+->]
@@ -434,7 +435,7 @@ Using State to manage anaphora:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org7cbf57b}]{Combining quantification and anaphora}
+\begin{frame}[label={sec:orgc913e0b}]{Combining quantification and anaphora}
 How might one do this?\\
 
 \bigskip \pause
@@ -442,7 +443,7 @@ How might one do this?\\
 Answer: one may use \emph{monad transformers} (the strategy adopted by \cite{shan_monads_2002}, and then, by \cite{charlow_semantics_2014}).
 \end{frame}
 
-\begin{frame}[label={sec:org7d6c0aa}]{Monad transformers}
+\begin{frame}[label={sec:org39f309c}]{Monad transformers}
 \(\mathcal{C}\) and \(\mathcal{S}\) are associated with corresponding monad transformers, \(\mathcal{C}_T\) and \(\mathcal{S}_T\).
 
 \begin{columns}
@@ -462,7 +463,7 @@ Answer: one may use \emph{monad transformers} (the strategy adopted by \cite{sha
 given one of \(\mathcal{C}\) or \(\mathcal{S}\) as the \emph{underlying monad}, we may apply one of \(\mathcal{S}_T\) or \(\mathcal{C}_T\) to it\ldots
 \end{frame}
 
-\begin{frame}[label={sec:orgf53c559}]{The Continuation monad transformer}
+\begin{frame}[label={sec:orgfa615ce}]{The Continuation monad transformer}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \begin{definition}[\(\mathcal{C}_T\)]
@@ -481,7 +482,7 @@ m\ \bind\ k =\ &\lda{c}{m (\lda{v}{\appS{\appS{k}{v}}{c}})}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org96a388c}]{The State monad transformer}
+\begin{frame}[label={sec:org0afb1af}]{The State monad transformer}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \begin{definition}[\(\mathcal{S}_T\)]
@@ -500,14 +501,14 @@ m\ \bind\ k =\ &\lda{s}{\appS{m}{s}\ \bind\ \lda{p}{\abbrev{let}\ \langle s^\pri
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgb21d106}]{To summarize\ldots}
+\begin{frame}[label={sec:orgdae4218}]{To summarize\ldots}
 This general strategy can be made to work extremely well \citep{charlow_semantics_2014}.
 
 \bigskip \pause
 But, how do we decide which monad transformer to apply to which monad?  
 \pause
 \begin{enumerate}
-\item Every dog licked Ashley. *He is friendly.
+\item Every dog licked Ashley. *It is friendly.
 \end{enumerate}
 
 \bigskip \pause
@@ -526,7 +527,7 @@ If we adopt the transformers approach from the start\ldots
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org26585f7}]{The problem}
+\begin{frame}[label={sec:org03c5182}]{The problem}
 The transformers approach, when used generically, prevents us from writing meanings. When used non-generically, it loses extensibility.
 
 \bigskip \pause
@@ -534,13 +535,13 @@ Might we salvage our individual analyses in some other way? In doing so, might w
 \end{frame}
 
 \section{Algebraic effects and handlers}
-\label{sec:orgd3553d6}
+\label{sec:orgbe5f580}
 
-\begin{frame}[label={sec:org876757d}]{We are here}
+\begin{frame}[label={sec:org0033d5a}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:org0f6a263}]{Background}
+\begin{frame}[label={sec:orge83c5ae}]{Background}
 Algebraic effects and handlers provide a means of writing extensible code, recently especially popular in functional programming.\footnote{Original insights about the relation between algebra and computational effects are from \citealt{plotkin_semantics_2001,plotkin_algebraic_2003}.} 
 
 \bigskip \pause
@@ -553,7 +554,7 @@ Jirka Mar\v{s}{\'i}k has done significant work importing algebraic effects into 
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orge93c948}]{The basic idea}
+\begin{frame}[label={sec:orgf421511}]{The basic idea}
 Instead of fixing a monad transformer stack, we may study the side effects of individual phenomena independently\ldots
 \pause
 \begin{itemize}[<+->]
@@ -571,7 +572,7 @@ I will take a different approach from Mar\v{s}{\'i}k, by\ldots
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org577c9d1}]{Algebraic signatures}
+\begin{frame}[label={sec:org84d4ef6}]{Algebraic signatures}
 An algebraic signature is a set \(E\) of operations, each one associated with a \emph{parameter} \(p\) and an \emph{arity} \(a\) (both types), along with a special operation \(\eta\) (`return').
 
 \begin{center}
@@ -594,14 +595,14 @@ To say operator \(\abbrev{op}_{p \leadsto a}\) is in signature \(E\) means that 
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org97398d9}]{Algebraic laws}
+\begin{frame}[label={sec:org49b70fd}]{Algebraic laws}
 In addition to the signature, an algebra determines a set of equations that must hold among its elements, of the form
 \begin{center}
 \(\abbrev{op}_i(p_i; \ldots) = \abbrev{op}_j(p_j; \ldots)\)
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orge49fbac}]{The State algebra (signature)}
+\begin{frame}[label={sec:org5896e01}]{The State algebra (signature)}
 instead of a State monad, we will have a State algebra
 
 \bigskip \pause
@@ -622,7 +623,7 @@ Some example elements of the State algebra\ldots
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org0eb364f}]{The State algebra (laws)}
+\begin{frame}[label={sec:org617fe5b}]{The State algebra (laws)}
 Reading the environment twice is no better than reading it once:
 \begin{center}
 \(\abbrev{get}_{\star \leadsto s}(\star; \lda{g}{\abbrev{get}_{\star \leadsto s}(\star; \lda{g^\prime}{\appS{\appS{k}{g}}{g^\prime}})}) = \abbrev{get}_{\star \leadsto s}(\star; \lda{g}{\appS{\appS{k}{g}}{g}})\)
@@ -635,7 +636,7 @@ Putting something back where you got it is the same as doing nothing:
 \end{center}
 
 \bigskip \pause
-Getting something that you just put back is the same as doing nothing:
+Getting after you just put means getting what you put:
 \begin{center}
 \(\abbrev{put}_{s \leadsto \star}(g; \lda{\star}{\abbrev{get}_{\star \leadsto s}(\star; k)}) = \abbrev{put}_{s \leadsto \star}(g; \lda{\star}{\appS{k}{g}})\)
 \end{center}
@@ -647,64 +648,189 @@ Putting twice overwrites:
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org14686b4}]{The Quantifier algebra (signature)}
+\begin{frame}[label={sec:org9d5f5d7}]{The Quantifier algebra (signature)}
 one operation, \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\)
 
 \bigskip \pause
-An example element of the Quantifier algebra\ldots
+Some example elements of the Quantifier algebra\ldots
 \begin{itemize}
-\item \small \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}((\lda{k}{\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{k}{x}}}); \lda{y}{\appS{\eta}{\appC{\ct{sleep}}{y}}}) : \mathcal{F}_{\{\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\}(t)}\)
+\item \small \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(\appS{\abbrev{every}}{\ct{dog}}; \lda{y}{\appS{\eta}{\appC{\ct{sleep}}{y}}}) : \mathcal{F}_{\{\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\}(t)}\)
+\item \footnotesize \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(\appS{\abbrev{every}}{\ct{dog}}; \lda{y}{\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(\appS{\abbrev{every}}{\ct{cat}}; \lda{z}{\appS{\eta}{\appC{\appS{\ct{chase}}{z}}{y}}})}) : \mathcal{F}_{\{\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\}(t)}\)
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org846e2fb}]{The Quantifier algebra (laws)}
+\begin{frame}[label={sec:org3cd2d74}]{The Quantifier algebra (laws)}
 Quantifying in:
 \begin{center}
 \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(q; \lda{x}{\appS{\eta}{\appC{k}{x}}}) = \appS{\eta}{\appC{q}{k}}\)
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org2ae9a3f}]{Combing the algebras\ldots}
+\begin{frame}[label={sec:org0eb62d9}]{Combing the algebras\ldots}
 is just a matter of
 \pause
 \begin{itemize}[<+->]
 \item collecting the operations into one signature
 \item combining the equations
+\item adding one more law to allow \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\) to commute with \(\abbrev{get}_{\star \leadsto s}\) and \(\abbrev{put}_{s \leadsto \star}\)
 \end{itemize}
+
+\bigskip \pause
+Commuting \(\abbrev{scope}_{(e \ra t) \ra e \leadsto e}\) past \(\abbrev{get}_{\star \leadsto s}\) and \(\abbrev{put}_{s \leadsto \star}\):
+\begin{center}
+\(\abbrev{scope}_{(e \ra t) \ra e \leadsto e}(q; \lda{x}{\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s^\prime; \lda{\star}{\appS{\appS{\appS{k}{x}}}{s}}{s^\prime})})})\)
+\bigskip
+
+= \(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s; \lda{\star}{\abbrev{scope}_{(e \ra t) \ra e \leadsto e}(q; \lda{x}{\appS{\appS{\appS{k}{x}}{s}}{s^\prime}})})})\)
+\end{center}
 \end{frame}
 
 \section{Making it Montagovian}
-\label{sec:orgcbe3891}
+\label{sec:org90e8e9d}
 
-\begin{frame}[label={sec:org04700ab}]{We are here}
+\begin{frame}[label={sec:orgea12242}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[label={sec:org008eab3}]{How to do it}
+\begin{frame}[label={sec:orgef60855}]{How to do it}
 What we want is an encoding of the operations, as well as a way of \emph{translating} \(\lambda\)-terms with lots of operations into ones with fewer operations in a way that respects the algebraic laws.
 
 \bigskip \pause
-This is called ``handling'' the operations.
+This is called ``handling'' the operations. It can treat algebraic laws essentially as \emph{reduction rules}. From this perspective, we may obtain a ``normal form'' for algebraic elements.
+
+\bigskip \pause
+In the combined State/Quantifier algebra, the normal form for any element is determined by the laws to be
+\begin{center}
+\(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{\star \leadsto s}(\appS{f}{s}; \appS{\eta}{\appC{g}{s}})})\)
+\end{center}
+
+for some \(f: s \rightarrow s\) and \(g: s \rightarrow v\).
+
+\bigskip \pause
+Pairs of such functions \(f\) and \(g\) can be represented as \(\lda{s}{\langle\appS{f}{s}, \appS{g}{s}\rangle}\) \ldots they are State monadic!
 \end{frame}
 
-\begin{frame}[label={sec:org660359a}]{Encoding operations}
-To encode operations, we define a family of functors \(\mathcal{F} : \mathcal{T}_\leadsto^* \ra \mathcal{T} \ra \mathcal{T}\), where
+\begin{frame}[label={sec:org38b27ce}]{Encoding elements}
+To encode elements of an algebra, we define a family of functors \(\mathcal{F} : \mathcal{T}_\leadsto^* \ra \mathcal{T} \ra \mathcal{T}\), where
 \begin{itemize}
 \item \(\mathcal{T}_\leadsto^*\) is the free monoid (i.e., of lists) over \(\mathcal{T}_\leadsto = \{p \leadsto a \divd p, a \in \mathcal{T}\}\)
 \end{itemize}
 
+\pause\vspace{-5mm}
 \begin{align*}
-\mathcal{F}_\epsilon(v) &= v\\[2mm]
+\mathcal{F}_\epsilon(v) &= v\\
 \mathcal{F}_{p \leadsto a, l}(v) &= (p \ra (a \ra \mathcal{F}_l(v)) \ra o) \ra o 
+\end{align*}\vspace{-12mm}
+
+\pause
+\begin{align*}
+\abbrev{op}_{p \leadsto a} &: p \ra (a \ra \mathcal{F}_l(v)) \ra \mathcal{F}_{p \leadsto a, l}\\
+\abbrev{op}_{p \leadsto a}(p; k) &= \lda{h}{\appS{\appS{h}{p}}{k}}\\[2mm]
+\onslide<4->{\eta &: v \ra \mathcal{F}_\epsilon(v)\\
+\appS{\eta}{v} &= v}
+\end{align*}
+
+\pause \pause
+Operations construct ``pairs''; returning just returns\ldots
+\end{frame}
+
+\begin{frame}[label={sec:org03daa20}]{An element of the State/Quantifier algebra}
+\begin{enumerate}
+\item Every dog hugged itself.
+\end{enumerate}
+
+\bigskip \pause
+$\abbrev{scope}_{(e \ra t) \ra t \leadsto e}(\appS{\abbrev{every}}{\ct{dog}};$\\
+$\hspace{1cm}\lda{x}{\abbrev{get}_{\star \leadsto s}(\star;$\\
+$\hspace{2cm}\lda{s}{\abbrev{put}_{s \leadsto \star}(\append{x}{s};$\\
+$\hspace{3cm}\lda{\star}{\abbrev{get}_{\star \leadsto s}(\star; \lda{s^\prime}{\appS{\eta}{\appC{\appS{\ct{hug}}{\appC{\abbrev{sel}}{s^\prime}}}{x}}})})})})$
+
+\bigskip \pause
+\begin{center}
+\(= \lda{h}{\appS{\appS{h}{\appC{\abbrev{every}}{\ct{dog}}}}{(\lda{x, h^\prime}{\appS{\appS{h^\prime}{\star}}{(\lda{s}{\ldots})})}}}\)
+\end{center}
+
+\bigskip \pause
+This will be an expression of type
+\begin{align*}
+&\mathcal{F}_{(e \ra t) \ra t \leadsto e, \star \leadsto s, s \leadsto \star, \star \leadsto s}\\
+=\ \ &(((e \ra t) \ra t) \ra (e \ra ((\star \ra (s \ra \ldots) \ra o^\prime) \ra o^\prime)) \ra o) \ra o
 \end{align*}
 \end{frame}
 
-\section{Quantification and anaphora}
-\label{sec:org028b793}
+\begin{frame}[label={sec:orgec77d25}]{Handling operations}
+We have a way of encoding meanings involving quantifiers and anaphora.
 
-\begin{frame}[label={sec:org0672a15}]{We are here}
+\bigskip \pause
+What we would like is to provide a \emph{handler} that implements our reduction rules, i.e., those determined by the algebraic laws.
+
+\bigskip \pause
+We need a family of functions
+\begin{center}
+\(\abbrev{handleSentence}_l : \mathcal{F}_l(t) \ra \mathcal{F}_{\star \ra s, s, \ra \star}(t)\)
+\end{center}
+where \(l \in \{(e \ra t) \ra t \leadsto e,\ \ \star \leadsto s,\ \ s \leadsto \star\}^*\).
+\end{frame}
+
+\section{Quantification and dynamism}
+\label{sec:org0be1b8a}
+
+\begin{frame}[label={sec:org68919ac}]{We are here}
 \tableofcontents[currentsection]
 \end{frame}
+
+\begin{frame}[label={sec:org2ab89fb}]{Predictions}
+We would like to explain contrasts such as
+\begin{enumerate}
+\item Every dog licked Ashley. *It is friendly.
+\item Ashley hugged every dog. She is friendly.
+\item Every dog licked itself.
+\end{enumerate}
+
+\bigskip \pause
+When applied to the meanings of the initial sentences, \(\abbrev{handleSentence}_l\) delivers:
+\pause
+\begin{itemize}[<+->]
+\item \(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s; \lda{\star}{\appS{\eta}{(\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{lick}}{\ct{a}}}{x}})}})})\)
+\item \(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(\append{\ct{a}}{s}; \lda{\star}{\appS{\eta}{(\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{hug}}{x}}{\ct{a}}})}})})\)
+\item \(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s; \lda{\star}{\appS{\eta}{(\quant{\forall}{x}{\appS{\ct{dog}}{x} \ra \appS{\appS{\ct{lick}}{\appC{\abbrev{sel}}{(\append{x}{s})}}}{x}})}})})\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org30ba8a8}]{In sum}
+Our algebraic laws predict the contrasts! Crucial is the law that commutes \(\abbrev{scope}_{(e \ra t) \ra t \leadsto e}\) past \(\abbrev{get}_{\star \leadsto s}\) and \(\abbrev{put}_{\star \leadsto s}\).
+
+\bigskip \pause
+\begin{center}
+\(\abbrev{scope}_{(e \ra t) \ra e \leadsto e}(q; \lda{x}{\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s^\prime; \lda{\star}{\appS{\appS{\appS{k}{x}}}{s}}{s^\prime})})})\)
+\bigskip
+
+= \(\abbrev{get}_{\star \leadsto s}(\star; \lda{s}{\abbrev{put}_{s \leadsto \star}(s; \lda{\star}{\abbrev{scope}_{(e \ra t) \ra e \leadsto e}(q; \lda{x}{\appS{\appS{\appS{k}{x}}{s}}{s^\prime}})})})\)
+\end{center}
+
+\bigskip \pause
+This law destroys a quantifier's dynamic potential, rendering it externally static.
+\end{frame}
+
+\begin{frame}[label={sec:orgebddcf3}]{Conclusion}
+The algebraic effects approach allows us to write semantic analyses which
+\pause
+\begin{itemize}[<+->]
+\item are compositional, using traditional tools (like, e.g., monads do)
+\item are extensible (unlike monad transformers, where providing meanings came at the cost of expanding the grammar)
+\item are relatively conservative (e.g., quantifiers are still of type \((e \ra t) \ra t\))
+\item allow us to study interactions between linguistic side effects, in terms of algebraic laws
+\end{itemize}
+
+\bigskip \pause
+This gives us a new and precise way of characterizing certain old semantic problems about quantification and dynamism:
+\pause
+\begin{itemize}[<+->]
+\item when combining algebras, where do any new laws come from? can they come for free?
+\end{itemize}
+\end{frame}
+
+
 
 \begin{frame}[allowframebreaks]{References}
 \bibliography{claspoct282020}
