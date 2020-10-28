@@ -1,4 +1,0 @@
-\beamer@sectionintoc {1}{Side effects in linguistic semantics}{3}{0}{1}
-\beamer@sectionintoc {2}{Algebraic effects and handlers}{112}{0}{2}
-\beamer@sectionintoc {3}{Making it Montagovian}{150}{0}{3}
-\beamer@sectionintoc {4}{Quantification and anaphora}{155}{0}{4}
