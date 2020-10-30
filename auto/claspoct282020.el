@@ -64,10 +64,10 @@
     "divd"
     "ra")
    (LaTeX-add-labels
-    "sec:orgde1b4f6"
-    "sec:org063b324"
-    "sec:orgf5d0774"
-    "sec:orgc05ae72")
+    "sec:org04eba1d"
+    "sec:org5832ec0"
+    "sec:org155b505"
+    "sec:orgf2ae633")
    (LaTeX-add-bibliographies)
    (LaTeX-add-lengths
     "appwidth"

@@ -142,7 +142,7 @@
     \vspace{-5mm}
     \begin{align*}
     \mathcal{M} &: \mathcal{T} \ra \mathcal{T}\\
-    \unit{(\cdot)} &: a \ra \mathcal{M}(b)\\
+    \unit{(\cdot)} &: a \ra \mathcal{M}(a)\\
     (\bind) &: \mathcal{M}(a) \ra (a \ra \mathcal{M}(b)) \ra \mathcal{M}(b)
     \end{align*}
     #+END_EXPORT
